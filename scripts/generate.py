@@ -69,7 +69,7 @@ def load_fewshot_examples(fewshot_dir: str) -> dict:
 
 def initialize_df(schema_path: str, opinions_dir: str) -> pd.DataFrame:
     """
-    Create an empty DataFrame with predefined schema, then load opinions from csv files.
+    Load opinions from CSV files into a DataFrame conforming to the schema.
     
     Args:
         schema_path: Path to the schema YAML file.
@@ -81,11 +81,10 @@ def initialize_df(schema_path: str, opinions_dir: str) -> pd.DataFrame:
     with open(schema_path, 'r') as file:
         schema = yaml.safe_load(file)['columns']
     
-    # read all CSV files at once (exclude _orig.csv backups and _ex.csv variants)
     opinion_files = [
         os.path.join(opinions_dir, f) 
         for f in os.listdir(opinions_dir) 
-        if f.endswith('.csv') and not f.endswith('_orig.csv') and not f.endswith('_ex.csv')
+        if f.endswith('.csv')
     ]
     
     if not opinion_files:
@@ -95,7 +94,7 @@ def initialize_df(schema_path: str, opinions_dir: str) -> pd.DataFrame:
     df = pd.concat(
         [pd.read_csv(f) for f in opinion_files], 
         ignore_index=True
-    ).rename(columns={'idx': 'opinion_id', 'opinion': 'opinion'})
+    ).rename(columns={'idx': 'opinion_id'})
     
     # ensure schema compliance
     for col, dtype in schema.items():
@@ -111,7 +110,7 @@ def initialize_df(schema_path: str, opinions_dir: str) -> pd.DataFrame:
 
 def convert_prompt_list(prompt_list: list, prompts_dir: str, exclude_fewshot: bool = False) -> str:
     """
-    Convert a list of prompts names into properly formatted prompt string.
+    Convert a list of prompt names into a formatted prompt string.
     
     Args:
         prompt_list: List of prompt strings.
@@ -231,7 +230,6 @@ async def generate_posts_batch(df: pd.DataFrame, base_prompt: str, config: dict,
         opinion_ids = opinion_ids[:1]
     
     all_posts = []
-    # num_batches = (len(opinions) + BATCH_SIZE - 1) // BATCH_SIZE
     
     for i in range(0, len(opinions), BATCH_SIZE):
         batch_opinions = opinions[i:i + BATCH_SIZE]
@@ -258,7 +256,7 @@ async def main(config: dict, check_prompt: bool = False, dry_run: bool = False, 
     
     Args:
         opinion_filter: Optional list of opinion_ids to generate for (e.g., ['A0', 'A8']).
-                        When set, uses upsert to backfill existing placeholder rows.
+                        When set, uses upsert to update existing rows.
     """
     global ASYNC_CLIENT
     ASYNC_CLIENT = AsyncOpenAI(
@@ -323,11 +321,9 @@ async def main(config: dict, check_prompt: bool = False, dry_run: bool = False, 
         # save results to database (upsert when backfilling filtered opinions)
         rows = list(zip(df['opinion_id'], df['opinion'], df['post']))
         if opinion_filter:
-            count = upsert_generations(conn, model_suffix, config['prompt_designation'], i, rows)
-            #print(f"Trial {i} complete. Upserted {count} rows into database.")
+            upsert_generations(conn, model_suffix, config['prompt_designation'], i, rows)
         else:
-            count = insert_generations(conn, model_suffix, config['prompt_designation'], i, rows)
-            #print(f"Trial {i} complete. Inserted {count} rows into database.")
+            insert_generations(conn, model_suffix, config['prompt_designation'], i, rows)
     
     conn.close()
 

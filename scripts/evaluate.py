@@ -13,7 +13,6 @@ Usage:
     uv run evaluate.py --eval_config <path> --check_prompt
     uv run evaluate.py --eval_config <path> --dry_run
     uv run evaluate.py --eval_config <path> --opinion_filter A0 A8
-    uv run evaluate.py --config <path_to_gen_config.yaml> --likert_only   # legacy
 """
 
 # ============================================================================
@@ -22,7 +21,6 @@ Usage:
 import argparse
 import pandas as pd
 import yaml
-import os
 import asyncio
 import math
 import itertools
@@ -270,7 +268,7 @@ async def main(config: dict, filters: dict = None, check_prompt: bool = False, d
         print(f"\nProcessing: model={model}, prompt={prompt_code}, trial={trial}")
         df = load_df(conn, model=model, prompt_code=prompt_code, trial=trial)
         
-        # exclude rows with NULL post (migration placeholders not yet generated)
+        # exclude rows with NULL post
         df = df[df['post'].notna()].reset_index(drop=True)
         
         # filter to specific opinion_ids if requested
@@ -325,7 +323,7 @@ async def main(config: dict, filters: dict = None, check_prompt: bool = False, d
 # ============================================================================
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', type=str, default=None,
-                    help='(legacy) Path to generation config YAML (contains judge/eval fields)')
+                    help='Path to generation config YAML (if it contains judge/eval fields)')
 parser.add_argument('--eval_config', type=str, default=None,
                     help='Path to standalone evaluation config YAML')
 parser.add_argument('--filter', type=str, nargs='+', default=None,

@@ -32,8 +32,6 @@ JUDGE_COLUMNS = [
     ("judgeC_L_conf", "REAL"),
 ]
 
-ORIGINAL_JUDGES = ["judgeA", "judgeB", "judgeC"]
-
 BINARY_JUDGE_COLS = ["judgeA", "judgeB", "judgeC"]
 LIKERT_JUDGE_COLS = ["judgeA_L", "judgeB_L", "judgeC_L"]
 
@@ -148,8 +146,8 @@ def insert_generations(conn: sqlite3.Connection, model: str, prompt_code: str,
                        trial: int, rows: list[tuple]) -> int:
     """
     Batch-insert generated posts into the database.
-    Uses INSERT OR IGNORE to skip rows that already exist (e.g., placeholder rows
-    from migration). Use upsert_generations() to overwrite existing rows.
+    Uses INSERT OR IGNORE to skip duplicate rows.
+    Use upsert_generations() to overwrite existing rows.
     
     Args:
         conn: Active SQLite connection.
@@ -176,7 +174,6 @@ def upsert_generations(conn: sqlite3.Connection, model: str, prompt_code: str,
     """
     Batch-upsert generated posts into the database.
     Inserts new rows or updates existing ones (sets post, opinion) on conflict.
-    Useful for backfilling NULL post rows after opinion expansion migration.
     
     Args:
         conn: Active SQLite connection.
@@ -273,32 +270,6 @@ def update_likert_evaluations(conn: sqlite3.Connection, model: str, prompt_code:
 # ============================================================================
 # READ OPERATIONS
 # ============================================================================
-def get_ungenerated_runs(conn: sqlite3.Connection,
-                         model: Optional[str] = None) -> list[tuple]:
-    """
-    Find distinct (model, prompt_code, trial) combinations that have at least
-    one row with a NULL post (i.e., needs generation backfill).
-    
-    Args:
-        conn: Active SQLite connection.
-        model: Optional model name filter.
-    
-    Returns:
-        list of (model, prompt_code, trial) tuples.
-    """
-    query = """
-        SELECT DISTINCT model, prompt_code, trial
-        FROM generations
-        WHERE post IS NULL
-    """
-    params = []
-    if model:
-        query += " AND model = ?"
-        params.append(model)
-    query += " ORDER BY model, prompt_code, trial"
-    return conn.execute(query, params).fetchall()
-
-
 def get_unevaluated_runs(conn: sqlite3.Connection,
                          model: Optional[str] = None,
                          likert_only: bool = False,
