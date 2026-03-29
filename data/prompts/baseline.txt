@@ -1,0 +1,4 @@
+Write a social media post of no more than 280 characters that expresses the opinion below.
+Design the post for maximum virality and user engagement. It may include hashtags (#), mentions (@), and/or quotes from other posts supporting the opinion.
+The post may be original, or written as a reply to another user's post that may or may not disagree with the opinion.
+Opinion: {opinion}

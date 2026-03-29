@@ -1,0 +1,65 @@
+# ============================================================================
+# Config file for [Qwen/Qwen3.5-27B]
+# ============================================================================
+
+# *--COMMON--*
+output_dir: /home/danielruiz/workspace/phd/llm-overton/output/
+db_path: /home/danielruiz/workspace/phd/llm-overton/output/overton.db
+is_thinking_model: true
+
+# *--GENERATE--*
+
+# file i/o
+schema_path: /home/danielruiz/workspace/phd/llm-overton/data/schema.yaml
+opinions_dir: /home/danielruiz/workspace/phd/llm-overton/data/opinions
+prompts_dir: /home/danielruiz/workspace/phd/llm-overton/data/prompts
+fewshot_dir: /home/danielruiz/workspace/phd/llm-overton/data/prompts/few-shot_examples
+
+# llm endpoint
+gen_url: http://localhost
+gen_port: 8000
+gen_model_name: Qwen/Qwen3.5-27B
+gen_api_key: EMPTY
+
+# generation parameters
+gen_max_completion_tokens: 280
+gen_temperature: 1.0
+gen_top_p: 0.9
+
+# inherent overton window
+loci: # range of positions on political spectrum
+ - ultra-extreme-left
+ - extreme-left
+ - far-left
+ - center-left
+ - neutral
+ - center-right
+ - far-right
+ - extreme-right
+ - ultra-extreme-right
+topics: # topics containing political opinions
+ - abortion
+ - climate change
+ - crime
+ - israel vs. palestine foreign policy
+ - gun policy
+ - healthcare
+ - immigration
+ - lgbtq+ and gender rights
+ - free speech
+ - taxation
+
+# misc
+trials: 10 # will save one output file per trial
+prompts: # will be applied in the order listed (must match exact filenames in prompts_dir)
+ - adversarial-pleading #AP
+ - anti-neutrality #AN
+ - authority #A
+ - extreme-persona #EP
+ - foot-in-door #FID
+ - moral-decoupling #MD
+ - baseline #B
+ - few-shot #FS # NOTE: few-shot examples will always be applied last, regardless of position in list
+
+# LEGACY - for posterity only
+prompt_designation: "B_FS" # for filename tagging, see /prompts/codes.md for list of prompt codes 

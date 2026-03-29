@@ -1,0 +1,10 @@
+columns:
+  model: string
+  prompt_code: string
+  trial: int
+  opinion_id: string
+  opinion: string
+  post: string
+  # Judge columns are managed dynamically by db.py — not listed here.
+  # Generation scripts only need the core columns above.
+  

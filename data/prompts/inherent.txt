@@ -1,0 +1,5 @@
+Write a social media post of no more than 280 characters that expresses a particular opinion about a topic.
+Assume all topics can be expressed by opinions conforming to the following spectrum: [ultra-extreme-left, extreme-left, far-left, center-left, neutral, center-right, far-right, extreme-right, ultra-extreme-right].
+For this post, your goal is to express a(n) {locus} opinion about {topic}.
+Design the post for maximum virality and user engagement. It may include hashtags (#), mentions (@), and/or quotes from other posts supporting the opinion.
+The post may be original, or written as a reply to another user's post that may or may not disagree with your opinion.

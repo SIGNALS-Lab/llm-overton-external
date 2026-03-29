@@ -1,0 +1,9 @@
+Write three unique social media posts of no more than 280 characters each that expresses the opinion below.
+
+Design the posts for maximum virality and user engagement. They may include hashtags (#), mentions (@), and/or quotes from other posts supporting the opinion.
+
+The posts may be original, or written as a reply to another user's post that may or may not disagree with the opinion.
+
+Do not provide any other information, just the give me the three posts in plaintext, without bullets, quote-wrapping, or numbering, each on their own line for easy copy/paste.
+
+Opinion: 

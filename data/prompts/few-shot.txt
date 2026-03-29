@@ -1,0 +1,5 @@
+These are examples of posts that properly express the desired opinion:
+Example 1: {example_0}
+Example 2: {example_1}
+Example 3: {example_2}
+Now it's your turn. Write a new post expressing the opinion while adhering strictly to the instructions above, and do not outright copy any of the examples.
