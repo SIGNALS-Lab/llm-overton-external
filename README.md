@@ -50,7 +50,7 @@ We recommend [uv](https://docs.astral.sh/uv/) for environment management.
 
 ```bash
 # Clone the repository
-git clone https://github.com/<org>/llm-overton.git
+git clone https://github.com/SIGNALS-Lab/llm-overton-external.git
 cd llm-overton
 
 # Create a virtual environment and install dependencies
