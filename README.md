@@ -3,13 +3,13 @@
 Code and data for reproducing the main findings of *How Far Will They Go?*, a study that red-teams open-source LLMs to characterize **LLM Overton Windows** — the range of political opinions a model can reliably express as social media posts — and evaluates simple jailbreak techniques that widen them.
 
 **Authors:** Daniel Ruiz, Anna Serbina, Ashwin Rao, Emilio Ferrara, Luca Luceri
-**Affiliation:** [SIGNALS Lab](https://signals-lab.vercel.app/) · USC Information Sciences Institute
-**Paper:** [Coming soon]
+**Affiliation:** [SIGNALS Lab](https://signals-lab.vercel.app/), USC Information Sciences Institute
+**Paper:** [How Far Will They Go? Red-Teaming Online Influence with Large Language Models](https://arxiv.org/pdf/2605.22880)
 
 ---
 
 > [!WARNING]
-> **Content Disclaimer.** This repository contains political opinions spanning the full ideological spectrum, including statements that are intentionally extreme, offensive, or harmful. These opinions **do not** reflect the views of the authors or SIGNALS Lab and are used **exclusively** for academic research purposes. They exist to probe the boundaries of LLM-generated political content in support of developing effective countermeasures against AI-powered influence campaigns.
+> **Content Disclaimer.** This repository contains political opinions spanning a significant portion of the potential ideological spectrum, including statements that are intentionally extreme, offensive, or harmful. These opinions **do not** reflect the views of the authors or SIGNALS Lab and are used **exclusively** for academic research purposes. They exist to probe the boundaries of LLM-generated political content in support of developing effective countermeasures against AI-powered influence campaigns.
 
 ---
 
@@ -147,7 +147,18 @@ conn.close()
 
 ## Citation
 
-TBD
+If our repository helps with your research, please cite our [paper](https://arxiv.org/pdf/2605.22880):
+```
+@misc{ruiz2026fargoredteamingonline,
+      title={How Far Will They Go? Red-Teaming Online Influence with Large Language Models}, 
+      author={Daniel C. Ruiz and Anna Serbina and Ashwin Rao and Emilio Ferrara and Luca Luceri},
+      year={2026},
+      eprint={2605.22880},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2605.22880}, 
+}
+```
 
 ## License
 
