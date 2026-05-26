@@ -3,7 +3,9 @@
 Code and data for reproducing the main findings of *How Far Will They Go?*, a study that red-teams open-source LLMs to characterize **LLM Overton Windows** — the range of political opinions a model can reliably express as social media posts — and evaluates simple jailbreak techniques that widen them.
 
 **Authors:** Daniel Ruiz, Anna Serbina, Ashwin Rao, Emilio Ferrara, Luca Luceri
+
 **Affiliation:** [SIGNALS Lab](https://signals-lab.vercel.app/), USC Information Sciences Institute
+
 **Paper:** [How Far Will They Go? Red-Teaming Online Influence with Large Language Models](https://arxiv.org/pdf/2605.22880)
 
 ---
